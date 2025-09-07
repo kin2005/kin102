@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import { AuthContext } from "./AuthContext";
 
-export default function ProfileScreen({ user, navigation }) {
+const ProfileScreen = () => {
+  const { user, setUser } = useContext(AuthContext);
+
   const handleLogout = () => {
-    navigation.replace("Login");
+    setUser(null);
   };
 
   return (
@@ -12,9 +15,11 @@ export default function ProfileScreen({ user, navigation }) {
       <Button title="Logout" onPress={handleLogout} />
     </View>
   );
-}
+};
+
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  text: { marginBottom: 20, fontSize: 16 },
+  text: { fontSize: 18, marginBottom: 20 },
 });
