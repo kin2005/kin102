@@ -1,26 +1,25 @@
-// pages/ActivityScreen.js
 import React from "react";
-import { View, FlatList, Text, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 
-const data = [
-  { id: "1", title: "กิจกรรม 1" },
-  { id: "2", title: "กิจกรรม 2" },
-  { id: "3", title: "กิจกรรม 3" }
+const activities = [
+  { id: "1", title: "Activity 1" },
+  { id: "2", title: "Activity 2" },
+  { id: "3", title: "Activity 3" },
 ];
 
-export default function ActivityScreen() {
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={data}
-        keyExtractor={(i) => i.id}
-        renderItem={({ item }) => <Text style={styles.item}>{item.title}</Text>}
-      />
-    </View>
-  );
-}
+const ActivityScreen = () => (
+  <View style={styles.container}>
+    <FlatList
+      data={activities}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <Text style={styles.item}>{item.title}</Text>}
+    />
+  </View>
+);
+
+export default ActivityScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  item: { padding: 12, borderBottomWidth: 1 }
+  container: { flex: 1, padding: 20 },
+  item: { fontSize: 18, padding: 10, borderBottomWidth: 1, borderColor: "#ccc" },
 });
