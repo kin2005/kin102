@@ -1,4 +1,3 @@
-// pages/LoginScreen.js
 import React, { useState, useContext } from "react";
 import { View, TextInput, Button, Alert, StyleSheet, Text } from "react-native";
 import { AuthContext } from "../navigation/AuthContext";
@@ -10,7 +9,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     if (email === "test@demo.com" && password === "123456") {
-      signIn(email); // จะทำให้ Navigation เปลี่ยนหน้าเพราะ user != null
+      signIn(email); // เปลี่ยน Navigation ไป MainTabs
     } else {
       Alert.alert("Login failed", "Email หรือ Password ไม่ถูกต้อง");
     }
