@@ -3,10 +3,10 @@ import { useColorScheme } from "react-native";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";   //
 
-// ✅ ตรวจสอบชื่อไฟล์ว่าตรงกับชื่อที่ใช้ (รวมถึงตัวพิมพ์ใหญ่-เล็ก)
 import LoginScreen from "../pages/LoginScreen";
-import HomeScreen from "../pages/HomeScreen";       // ← ต้องเป็น "H" ใหญ่
+import HomeScreen from "../pages/HomeScreen";
 import ActivityScreen from "../pages/ActivityScreen";
 import ProfileScreen from "../pages/ProfileScreen";
 import SettingsScreen from "../pages/SettingsScreen";
@@ -16,7 +16,28 @@ const Tab = createBottomTabNavigator();
 
 function MainTabs() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: true }}>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: true,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "Home") {
+            iconName = focused ? "home" : "home-outline";
+          } else if (route.name === "Activity") {
+            iconName = focused ? "list" : "list-outline";
+          } else if (route.name === "Profile") {
+            iconName = focused ? "person" : "person-outline";
+          } else if (route.name === "Settings") {
+            iconName = focused ? "settings" : "settings-outline";
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "#007AFF",
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Activity" component={ActivityScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
