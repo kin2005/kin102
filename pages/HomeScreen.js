@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { AuthContext } from "../navigation/Navigation";
 
-export default function HomeScreen() {
-  const { user } = useContext(AuthContext);
-
+export default function HomeScreen({ user }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>ยินดีต้อนรับ {user?.email}</Text>
@@ -14,5 +11,5 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  text: { fontSize: 20, fontWeight: "bold" },
+  text: { fontSize: 18, fontWeight: "bold" },
 });

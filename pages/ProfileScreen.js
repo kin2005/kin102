@@ -1,21 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-import { AuthContext } from "../navigation/Navigation";
 
-export default function ProfileScreen() {
-  const { user, setUser } = useContext(AuthContext);
-
-  const logout = () => setUser(null);
+export default function ProfileScreen({ user, navigation }) {
+  const handleLogout = () => {
+    navigation.replace("Login");
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Email: {user?.email}</Text>
-      <Button title="Logout" onPress={logout} />
+      <Button title="Logout" onPress={handleLogout} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  text: { fontSize: 18, marginBottom: 20 },
+  text: { marginBottom: 20, fontSize: 16 },
 });

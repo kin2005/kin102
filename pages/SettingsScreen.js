@@ -1,18 +1,13 @@
+// pages/SettingsScreen.js
 import React, { useState } from "react";
 import { View, Text, Switch, StyleSheet } from "react-native";
-
-export default function SettingsScreen() {
-  const [isEnabled, setIsEnabled] = useState(false);
-
+export default function SettingsScreen(){
+  const [enabled,setEnabled] = useState(false);
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>เปิดใช้งานบางอย่าง</Text>
-      <Switch value={isEnabled} onValueChange={setIsEnabled} />
+      <Text>เปิดการแจ้งเตือน</Text>
+      <Switch value={enabled} onValueChange={setEnabled} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  text: { fontSize: 18, marginBottom: 10 },
-});
+const styles = StyleSheet.create({ container:{flex:1,justifyContent:'center',alignItems:'center'} });
