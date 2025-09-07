@@ -1,9 +1,13 @@
-// navigation/AuthContext.js
-import React from "react";
+import React, { createContext, useState } from "react";
 
-// สร้าง Context สำหรับแชร์ข้อมูลล็อกอิน
-export const AuthContext = React.createContext({
-  user: null,
-  signIn: (email) => {},
-  signOut: () => {},
-});
+export const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

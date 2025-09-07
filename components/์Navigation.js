@@ -1,54 +1,46 @@
-// navigation/Navigation.js
-import React, { useState, useMemo } from "react";
-import { useColorScheme } from "react-native";
-import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import React, { useState, useContext } from "react";
+import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
 import { AuthContext } from "./AuthContext";
 
-// pages
-import LoginScreen from "../pages/LoginScreen";
-import HomeScreen from "../pages/HomeScreen";
-import ActivityScreen from "../pages/ActivityScreen";
-import ProfileScreen from "../pages/ProfileScreen";
-import SettingsScreen from "../pages/SettingsScreen";
+const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setUser } = useContext(AuthContext);
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-function MainTabs() {
-  return (
-    <Tab.Navigator screenOptions={{ headerShown: true }}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Activity" component={ActivityScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-}
-
-export default function Navigation() {
-  const scheme = useColorScheme();
-  const [user, setUser] = useState(null);
-
-  const auth = useMemo(() => ({
-    user,
-    signIn: (email) => setUser({ email }),
-    signOut: () => setUser(null),
-  }), [user]);
+  const handleLogin = () => {
+    if (email === "test@demo.com" && password === "123456") {
+      setUser({ email });
+    } else {
+      Alert.alert("Login Failed", "Email or Password is incorrect");
+    }
+  };
 
   return (
-    <AuthContext.Provider value={auth}>
-      <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {!user ? (
-            <Stack.Screen name="Login" component={LoginScreen} />
-          ) : (
-            <Stack.Screen name="MainTabs" component={MainTabs} />
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <Button title="Log In" onPress={handleLogin} />
+    </View>
   );
-}
+};
+
+export default LoginScreen;
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", padding: 20 },
+  title: { fontSize: 28, fontWeight: "bold", marginBottom: 20, textAlign: "center" },
+  input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, marginBottom: 15, padding: 10 },
+});
