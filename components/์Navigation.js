@@ -1,26 +1,34 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../pages/HomeScreen';
-import DetailScreen from '../pages/DetailScreen';
-import ProfileScreen from '../pages/ProfileScreen';
-import CounterScreen from '../pages/CounterScreen';
-import StyleScreen from "../pages/StyleSheet";
-import Flexbox from "../pages/Flexbox";
-import LayoutScreen from "../pages/LayoutScreen";
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../pages/LoginScreen";
+import HomeScreen from "../pages/HomeScreen";
+import ActivityScreen from "../pages/ActivityScreen";
+import ProfileScreen from "../pages/ProfileScreen";
+import SettingsScreen from "../pages/SettingsScreen";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function MainTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Activity" component={ActivityScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+    </Tab.Navigator>
+  );
+}
 
 export default function Navigation() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Details" component={DetailScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="Counter" component={CounterScreen} />
-            <Stack.Screen name="StyleSheet" component={StyleScreen} />
-            <Stack.Screen name="Flexbox" component={Flexbox} />
-            <Stack.Screen name="Layout" component={LayoutScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-        </Stack.Navigator>
-    );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="MainTabs" component={MainTabs} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
