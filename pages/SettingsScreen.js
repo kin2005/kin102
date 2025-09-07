@@ -6,9 +6,8 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Dark Mode</Text>
-      <Switch value={isEnabled} onValueChange={() => setIsEnabled(!isEnabled)} />
-      <Text>{isEnabled ? "เปิด Dark Mode" : "ปิด Dark Mode"}</Text>
+      <Text style={styles.text}>เปิดใช้งานบางอย่าง</Text>
+      <Switch value={isEnabled} onValueChange={setIsEnabled} />
     </View>
   );
 }
